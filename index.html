@@ -7,12 +7,15 @@
 
 <style>
 :root {
-  --bg: #0d1117;
-  --card: #161b22;
-  --accent: #2f81f7;
+  /* Updated palette derived from the provided logo */
+  --bg-deep: #050a12;
+  --bg-card: rgba(13, 17, 23, 0.7); /* Translucent card background */
+  --blue-glow: #38bdf8; /* Logo blue */
+  --purple-glow: #a855f7; /* Logo purple */
+  --accent: #2f81f7; /* Main interaction color */
   --danger: #f85149;
   --text: #e6edf3;
-  --muted: #8b949e;
+  --muted: #a1a1aa;
 }
 
 * {
@@ -22,76 +25,165 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--bg-deep);
   color: var(--text);
-  line-height: 1.7;
+  line-height: 1.8;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .container {
   max-width: 1100px;
   margin: auto;
   padding: 40px 20px;
+  flex-grow: 1; /* Pushes footer down */
+}
+
+/* --- Cool Header Section --- */
+.header-area {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.server-logo {
+  max-width: 120px;
+  height: auto;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5)); /* Subtle blue glow on logo */
 }
 
 h1 {
-  font-size: 2.6rem;
+  font-size: 3rem;
   margin-bottom: 10px;
+  letter-spacing: 1px;
+  font-weight: 800;
+  
+  /* Apply blue-to-purple gradient from logo to the title text */
+  background: linear-gradient(135deg, var(--blue-glow) 30%, var(--purple-glow) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 h2 {
-  margin-top: 60px;
-  font-size: 1.9rem;
-  border-left: 4px solid var(--accent);
-  padding-left: 12px;
+  margin-top: 70px;
+  font-size: 2rem;
+  padding-bottom: 10px;
+  position: relative;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Unique animated underline under each main rule section */
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 60px;
+  background: linear-gradient(90deg, var(--blue-glow), var(--purple-glow));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+h2:hover::after {
+  width: 120px; /* Animate on hover over the title */
 }
 
 h3 {
-  color: var(--accent);
-  margin-top: 30px;
+  color: var(--blue-glow);
+  margin-top: 35px;
 }
 
 p {
   color: var(--muted);
 }
 
-.card {
-  background: var(--card);
-  border-radius: 14px;
-  padding: 28px;
-  margin-top: 25px;
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.03);
+strong {
+  color: #fff;
 }
 
+/* --- Glassmorphism Card Style --- */
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(8px); /* Frosted glass effect */
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 14px;
+  padding: 30px;
+  margin-top: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle inner glow */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px); /* Lift slightly on hover */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  border-color: rgba(56, 189, 248, 0.2); /* Slight blue glow on hover */
+}
+
+/* Advanced typography for the rules lists */
 ul {
   padding-left: 18px;
+  list-style: none; /* We will use custom bullets */
 }
 
 li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: var(--muted);
+  position: relative;
+  padding-left: 20px;
 }
 
+/* Custom bullets styling using pseudo-elements */
+li::before {
+  content: '•';
+  color: var(--blue-glow);
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+  position: absolute;
+  left: 0;
+}
+
+/* Highlighted Notice Box (Blue theme) */
 .notice {
-  background: rgba(47,129,247,0.12);
-  border-left: 4px solid var(--accent);
-  padding: 15px;
+  background: rgba(56, 189, 248, 0.1); /* Transparent blue bg */
+  border-left: 4px solid var(--blue-glow);
+  padding: 18px;
   border-radius: 8px;
   margin-top: 20px;
+  box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.05);
 }
 
+/* Danger Box (Red theme) */
 .danger {
-  background: rgba(248,81,73,0.12);
+  background: rgba(248, 81, 73, 0.12);
   border-left: 4px solid var(--danger);
-  padding: 15px;
+  padding: 18px;
   border-radius: 8px;
-  margin-top: 20px;
+  margin-top: 25px;
+  box-shadow: inset 0 0 10px rgba(248, 81, 73, 0.05);
 }
 
+.danger p {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* --- Footer Area --- */
 footer {
   text-align: center;
-  margin-top: 80px;
+  padding: 50px 20px 30px;
   color: var(--muted);
   font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  margin-top: 80px;
+  background: #03060a;
 }
 </style>
 </head>
@@ -99,188 +191,199 @@ footer {
 <body>
 <div class="container">
 
-<h1>Nova Roleplay</h1>
-<p><strong>Community Standards & Server Rules</strong></p>
-
-<div class="notice">
-  By accessing Nova Roleplay — including our FiveM server, Discord, or any affiliated platform —
-  you agree to comply with the rules and policies outlined below.
-  Failure to do so may result in disciplinary action, up to and including permanent removal.
-</div>
-
-<h2>1. Eligibility & Acceptance of Terms</h2>
-<div class="card">
-  <ul>
-    <li>You must be at least <strong>13 years old</strong> to join our Discord, per Discord TOS.</li>
-    <li>By participating in Nova Roleplay, you confirm you have read and agreed to these rules.</li>
-    <li>Claiming ignorance of the rules does <strong>not</strong> exempt you from punishment.</li>
-  </ul>
-</div>
-
-<h2>2. Management Authority & Enforcement</h2>
-<div class="card">
-  <p>Nova Roleplay Staff reserves the right to:</p>
-  <ul>
-    <li>Remove users or restrict access at any time.</li>
-    <li>Issue punishment with or without warning if necessary.</li>
-    <li>Apply discipline based on context, intent, history, and common sense.</li>
-  </ul>
-  <div class="danger">
-    All staff decisions are final. Public arguments regarding moderation actions are prohibited.
+  <div class="header-area">
+    <img src="logo.png" alt="Nova Roleplay Logo" class="server-logo">
+    <h1>Nova Roleplay</h1>
+    <p><strong>Community Standards & Server Rules</strong></p>
   </div>
-</div>
-
-<h2>3. Community Conduct Expectations</h2>
-<div class="card">
-  <p>All members are expected to act respectfully and maturely. The following are strictly prohibited:</p>
-  <ul>
-    <li>Harassment, bullying, or targeted behavior</li>
-    <li>Discrimination or hateful language of any kind</li>
-    <li>Excessive toxicity beyond reasonable roleplay</li>
-    <li>Personal attacks, stalking, or intimidation</li>
-    <li>Impersonation of users, staff, or real-world entities</li>
-  </ul>
-  <div class="danger">
-    Severe misconduct (doxxing, swatting, sexual harassment, network attacks) will result in immediate removal and may be reported to authorities.
-  </div>
-</div>
-
-<h2>4. Privacy & Personal Safety</h2>
-<div class="card">
-  <p>The following actions regarding private data are strictly prohibited:</p>
-  <ul>
-    <li>Sharing private or identifying information without consent</li>
-    <li>Posting real names, addresses, locations, or IDs</li>
-    <li>Sharing private or restricted social media profiles</li>
-    <li>Posting images or videos of someone’s face without permission</li>
-    <li>Recording or streaming from private spaces without consent</li>
-  </ul>
-  <p>
-    Even if information is publicly available, using it to harass or target someone is prohibited.
-  </p>
-</div>
-
-<h2>5. Prohibited Content</h2>
-<div class="card">
-  <p>The posting or distribution of the following content is banned:</p>
-  <ul>
-    <li>Sexual content, pornography, or nudity</li>
-    <li>Sexual violence or exploitation (zero tolerance)</li>
-    <li>Child exploitation (reported to authorities)</li>
-    <li>Terrorism, extremism, or mass-casualty threats</li>
-    <li>Graphic or excessive gore</li>
-    <li>Illegal activity or encouragement thereof</li>
-    <li>Malware, viruses, or malicious links</li>
-    <li>Spam or disruptive posting</li>
-    <li>Unauthorized advertising or solicitation</li>
-    <li>False or intentionally misleading information</li>
-  </ul>
-</div>
-
-<h2>6. Cheating, Exploits & Server Integrity</h2>
-<div class="card">
-  <p>The following actions will result in immediate server bans:</p>
-  <ul>
-    <li>Mod menus or injected cheats</li>
-    <li>Bug or mechanic abuse</li>
-    <li>AFK farming</li>
-    <li>Phishing or scams</li>
-    <li>Account sharing or selling</li>
-    <li>Fake distress reports or misinformation</li>
-    <li>Tampering with Nova Roleplay systems</li>
-  </ul>
-  <div class="danger">
-    Abuse of exploits must be reported immediately.
-  </div>
-</div>
-
-<h2>7. General Gameplay Requirements</h2>
-<div class="card">
-  <ul>
-    <li>Working microphone required (limited exceptions may apply)</li>
-    <li>English must be used in public interactions</li>
-    <li>Discord access is mandatory</li>
-    <li>Follow staff chain of command</li>
-    <li>Realistic and appropriate usernames and character names</li>
-    <li>No self-promotion of other servers or services</li>
-  </ul>
-</div>
-
-<h2>8. Roleplay Restrictions</h2>
-<div class="card">
-  <p>The following roleplay elements are strictly forbidden:</p>
-  <ul>
-    <li>RDM or VDM</li>
-    <li>Sexually explicit or disturbing character models</li>
-    <li>Hitman, vigilante, or contract-killing RP</li>
-    <li>Impersonating law enforcement or emergency services</li>
-    <li>Interfering with passive departments</li>
-    <li>Raids or kidnappings in greenzones</li>
-    <li>Scene interruption without RP justification</li>
-    <li>Priority creation during cooldowns</li>
-    <li>Intentional immersion disruption</li>
-  </ul>
-</div>
-
-<h2>9. Roleplay Mechanics & Definitions</h2>
-<div class="card">
-  <ul>
-    <li>No Metagaming</li>
-    <li>No FailRP</li>
-    <li>FearRP is mandatory</li>
-    <li>NLR applies after death</li>
-    <li>No combat logging</li>
-    <li>No OOC during active RP unless staff-directed</li>
-    <li>Third-party VOIP is IC communication</li>
-  </ul>
-</div>
-
-<h2>10. Zero-Tolerance Roleplay</h2>
-<div class="danger">
-  <p>Engaging in the following roleplay scenarios will result in a permanent, unappealable ban:</p>
-  <ul>
-    <li>Sexual assault RP</li>
-    <li>Suicide RP</li>
-    <li>Terrorism or mass-casualty RP</li>
-  </ul>
-</div>
-
-<h2>11. Priority Cooldown Rules</h2>
-<div class="card">
-  <h3>What Is a Priority Scene?</h3>
-  <ul>
-    <li>Armed robberies</li>
-    <li>Shootouts</li>
-    <li>High-speed pursuits</li>
-    <li>Hostage situations</li>
-    <li>Large-scale criminal activity</li>
-  </ul>
-
-  <h3>During Cooldown, You May NOT:</h3>
-  <ul>
-    <li>Start new priority scenes</li>
-    <li>Escalate into violent situations</li>
-    <li>Bait law enforcement</li>
-    <li>Bypass cooldowns via loopholes</li>
-  </ul>
-
-  <h3>Allowed During Cooldown:</h3>
-  <ul>
-    <li>Civilian and business RP</li>
-    <li>Traffic stops</li>
-    <li>Investigative RP</li>
-    <li>Social and character development</li>
-  </ul>
 
   <div class="notice">
-    Staff discretion applies at all times. Claiming ignorance of cooldowns is not a valid excuse.
+    By accessing Nova Roleplay — including our FiveM server, Discord, or any affiliated platform —
+    you agree to comply with the rules and policies outlined below.
+    Failure to do so may result in disciplinary action, up to and including permanent removal.
   </div>
+
+  <h2>1. Eligibility & Acceptance of Terms</h2>
+  <div class="card">
+    <p>We believe in maintaining a safe environment for all participants. To join our platforms, you agree to the following eligibility requirements:</p>
+    <ul>
+      <li>You must be at least <strong>13 years old</strong> to join our Discord, per Discord TOS. If you are found to be underage, you will be immediately removed.</li>
+      <li>By participating in Nova Roleplay (including browsing this repository or accessing the FiveM server), you confirm you have read, understood, and agreed to these entire Community Standards without reservation.</li>
+      <li>Claiming ignorance of the rules does <strong>not</strong> exempt you from punishment. It is your responsibility to review this document regularly.</li>
+    </ul>
+  </div>
+
+  <h2>2. Management Authority & Enforcement</h2>
+  <div class="card">
+    <p>Nova Roleplay Staff are trained volunteers tasked with ensuring the server is safe and enjoyable. The Management team reserves the right to:</p>
+    <ul>
+      <li>Remove users or restrict access to any affiliated platforms at any time, for any reason, in accordance with server needs.</li>
+      <li>Issue disciplinary actions (including verbal warnings, official warnings, temporary kicks, and permanent bans) with or without prior warning. Disciplinary history is tracked.</li>
+      <li>Apply discipline based on context, intent, severity of the infraction, history, and common sense.</li>
+    </ul>
+    <div class="danger">
+      All staff decisions are considered final. Public arguments regarding moderation actions on Discord or in-game are strictly prohibited and will be punished severely. Appeals must follow official channels.
+    </div>
+  </div>
+
+  <h2>3. Community Conduct Expectations</h2>
+  <div class="card">
+    <p>All members of the Nova Roleplay community are expected to act respectfully, maturely, and professionally. The following behaviors are strictly prohibited on all official platforms:</p>
+    <ul>
+      <li>Targeted harassment, bullying, stalking, or any behavior designed to intimidate or distress other users.</li>
+      <li>Discrimination, prejudice, or hateful language of any kind based on race, gender, sexuality, religion, disability, or identity.</li>
+      <li>Excessive toxicity that disrupts the immersion of others beyond reasonable in-character roleplay. OOC (Out of Character) toxicity is met with a low tolerance.</li>
+      <li>Personal attacks, releasing personal information (Doxxing), or intimidation of other users or staff.</li>
+      <li>Impersonation of specific users, staff, real-world law enforcement officers, or public figures with malicious intent.</li>
+    </ul>
+    <div class="danger">
+      <p>Severe Misconduct Protocol:</p>
+      Severe misconduct (Doxxing, Swatting, Network Attacks, Sexual Harassment, Terrorist Threats) will result in immediate, permanent removal from all Nova Roleplay platforms and may be reported to appropriate law enforcement authorities.
+    </div>
+  </div>
+
+  <h2>4. Privacy & Personal Safety</h2>
+  <div class="card">
+    <p>We take the safety of our members seriously. Respect for private life is mandatory. The following actions are strictly prohibited:</p>
+    <ul>
+      <li>Sharing private, confidential, or identifying information about another user (Doxxing) without their explicit consent.</li>
+      <li>Posting real names, home addresses, phone numbers, exact locations, or government IDs of other users.</li>
+      <li>Sharing private social media profiles or restricted communication channels without permission.</li>
+      <li>Posting clear images or videos of someone’s face (Real-Life Photos) without their permission.</li>
+      <li>Recording or streaming from designated private spaces (such as specific Discord channels) without the consent of all present parties.</li>
+    </ul>
+    <p>
+      Even if information is publicly available, using it to harass, target, or intimidate a member of this community is still prohibited.
+    </p>
+  </div>
+
+  <h2>5. Prohibited Content</h2>
+  <div class="card">
+    <p>Nova Roleplay aims to maintain a realistic and professional environment. The posting or distribution of the following content is banned across all platforms:</p>
+    <ul>
+      <li>Explicit sexual content, pornography, or depictions of nudity, including hyper-realistic "NSFW" models.</li>
+      <li>Depictions of sexual violence, exploitation, or non-consensual acts (Zero Tolerance).</li>
+      <li>Depictions or facilitation of child exploitation (Immediately reported to NCMEC/authorities).</li>
+      <li>Content promoting or glorifying terrorism, extremist ideologies, mass-casualty events, or hate groups.</li>
+      <li>Graphic, excessive, or gratuitous real-life gore or extreme violence.</li>
+      <li>Facilitation of illegal activity or encouraging other members to break local laws.</li>
+      <li>Links to malware, viruses, phishing sites, or any malicious software.</li>
+      <li>Spamming, repetitive messaging, or posting designed to disrupt the chat or forum.</li>
+      <li>Unauthorized advertising, self-promotion, or solicitation of external services, servers, or communities without management approval.</li>
+      <li>Posting false or intentionally misleading information with the intent to cause confusion or harm.</li>
+    </ul>
+  </div>
+
+  <h2>6. Cheating, Exploits & Server Integrity</h2>
+  <div class="card">
+    <p>To ensure a fair and balanced roleplay environment, any form of cheating or exploiting will result in immediate disciplinary action, including permanent bans for third-party tools:</p>
+    <ul>
+      <li>Utilization of third-party external programs, "mod menus," injected cheats, aimbots, or crosshairs designed to give an unfair advantage.</li>
+      <li>Deliberately abusing bugs, glitches, or intended game mechanics for personal gain or to disrupt the server.</li>
+      <li>AFK (Away From Keyboard) farming to accrue time, money, or stats while not actively playing.</li>
+      <li>Attempting to phish, scam, or steal other players' account information, vehicles, or virtual assets.</li>
+      <li>Sharing an account or selling in-game assets for real-world currency is strictly prohibited.</li>
+      <li>Making fake distress reports or intentionally misinforming Law Enforcement about ongoing incidents.</li>
+      <li>Attempting to tamper with Nova Roleplay infrastructure, databases, or API systems.</li>
+    </ul>
+    <div class="danger">
+      <p>Self-Reporting Rule:</p>
+      If you discover a bug or exploit, you are obligated to report it immediately to the development team via the official ticketing system. Knowingly utilizing an exploit will be punished.
+    </div>
+  </div>
+
+  <h2>7. General Gameplay Requirements</h2>
+  <div class="card">
+    <p>To participate in our FiveM server, players must meet the following baseline technical and behavioral standards:</p>
+    <ul>
+      <li>A working microphone and a functional voice setup are required for all players (limited exceptions for players with specific disabilities may apply, but must be pre-approved).</li>
+      <li>English must be the primary language used in all public, in-character (IC) interactions to ensure common understanding.</li>
+      <li>Discord access is mandatory. Many critical server announcements, departmental operations, and rule updates are communicated exclusively via Discord.</li>
+      <li>Follow the staff chain of command. If you have a dispute, address the moderator first, then their supervisor, before escalating to senior management.</li>
+      <li>Usernames, character names, and Steam names must be realistic and appropriate (avoid offensive, sexually explicit, or troll names).</li>
+      <li>Self-promotion of other FiveM servers, gaming communities, or services is not allowed within the in-game world or chat.</li>
+    </ul>
+  </div>
+
+  <h2>8. Roleplay Restrictions</h2>
+  <div class="card">
+    <p>The following specific actions are strictly forbidden to ensure realistic, high-quality roleplay scenarios:</p>
+    <ul>
+      <li><strong>RDM (Random Deathmatch):</strong> Committing violent acts, including shooting or assault, against another player without valid, preceding roleplay justification. A preceding "reason" like "I was bored" is not valid.</li>
+      <li><strong>VDM (Vehicle Deathmatch):</strong> Utilizing vehicles as a primary weapon to strike or kill other players without extensive roleplay justification. (Incidental, realistic car accidents are acceptable, VDM-as-weapon is not).</li>
+      <li>Depicting sexually explicit acts or disturbing, non-consensual scenarios using character models.</li>
+      <li>Engaging in "Hitman," vigilante, or contract-killing roleplay without prior staff approval for a specific storyline.</li>
+      <li>Impersonating Law Enforcement Officers (LEO) or emergency services (EMS/Fire) without being a whitelisted member of those departments.</li>
+      <li>Interfering with passive departments or essential, non-crime-related job functions (such as deliveries, towing, or bus driving).</li>
+      <li>Conducting raids, extensive robberies, or kidnappings in designated "Green Zones" (safe zones like police stations, hospitals, and designated business hubs).</li>
+      <li>Interrupting active roleplay scenes without being an active, justifiable participant. (Known as "cop baiting" or "scene jumping").</li>
+      <li>Creating priority situations (armed robberies, shootouts) while priority cooldowns are active.</li>
+      <li>Intentional immersion disruption (e.g., unrealistic vehicle handling, nonsensical roleplay).</li>
+    </ul>
+  </div>
+
+  <h2>9. Roleplay Mechanics & Definitions</h2>
+  <div class="card">
+    <p>The following are foundational roleplay concepts that all players must adhere to. Failure to understand these is not an excuse.</p>
+    <ul>
+      <li><strong>Metagaming:</strong> Utilizing out-of-character (OOC) information gained from streams, Discord, or forums for in-character (IC) gain. This is strictly prohibited. Information must be learned organically in the in-game world.</li>
+      <li><strong>FailRP:</strong> Engaging in unrealistic roleplay behavior that would not be plausible in a real-world scenario or contradicts your character's established persona. (e.g., jumping a vehicle 100 feet in the air and driving off, driving a realistic vehicle with broken wheels).</li>
+      <li><strong>FearRP:</strong> Players must realisticly fear for their character’s life in a situation where they are clearly disadvantaged, especially when facing lethal force (e.g., being held at gunpoint when you are unarmed). Powergaming is prohibited.</li>
+      <li><strong>NLR (New Life Rule):</strong> When your character is "killed" (incapacitated and "respawns" or "bleeds out"), NLR applies. Your character has a "new life" and cannot recall the specific events leading up to their death, nor can they seek immediate revenge on the parties involved.</li>
+      <li><strong>Combat Logging:</strong> Logging out or forcefully closing your game during an active, hostile in-character encounter (e.g., being chased by police, being robbed, being shot).</li>
+      <li>OOC (Out of Character) chat (local text/global Discord) should not be used during active in-character situations unless specifically directed by staff to pause for administrative purposes.</li>
+      <li>Third-party VOIP (Voice over IP) systems (like TeamSpeak or Discord Voice) are strictly considered in-character (IC) communication unless explicitly in an OOC channel (e.g., Staff Support). You are responsible for everything said.</li>
+    </ul>
+  </div>
+
+  <h2>10. Zero-Tolerance Roleplay</h2>
+  <div class="danger">
+    <p>Engaging in the following roleplay scenarios will result in a permanent, unappealable ban from all Nova Roleplay platforms and reporting to appropriate legal authorities where necessary:</p>
+    <ul>
+      <li>Roleplay scenarios depicting sexual assault, rape, or non-consensual sexual acts in any context.</li>
+      <li>Roleplay depicting suicide or severe self-harm.</li>
+      <li>Roleplay involving massive terrorist events, mass-casualty acts, extremist ideological violence, or genocide.</li>
+    </ul>
+  </div>
+
+  <h2>11. Priority Cooldown Rules</h2>
+  <div class="card">
+    <p>Nova Roleplay operates under a "priority cooldown" system to manage large-scale criminal events, ensuring LEO (Law Enforcement) forces are not overwhelmed and passive RP can occur.</p>
+    <h3>What Is a Priority Scene?</h3>
+    <ul>
+      <li>Armed robberies (banks, jewelry stores, convenience stores).</li>
+      <li>Large-scale shootouts involving multiple participants.</li>
+      <li>High-speed pursuits involving multiple LEO units or aircraft.</li>
+      <li>Hostage situations with active negotiations.</li>
+      <li>Other large-scale criminal activity requiring multiple responding units.</li>
+    </ul>
+
+    <h3>During Cooldown, You May NOT:</h3>
+    <ul>
+      <li>Start new priority scenes, armed robberies, or shootouts.</li>
+      <li>Escalate traffic stops or low-priority police calls into violent situations or high-speed pursuits.</li>
+      <li>Engage in LEO baiting, excessive provocation, or attempts to draw LE units away from their stations.</li>
+      <li>Attempt to bypass priority cooldowns via loopholes or technicalities.</li>
+    </ul>
+
+    <h3>Allowed During Cooldown:</h3>
+    <ul>
+      <li>All standard civilian and business-oriented roleplay.</li>
+      <li>Standard traffic stops, minor offenses, and low-level police calls.</li>
+      <li>Passive, investigative roleplay from Law Enforcement.</li>
+      <li>General social interactions and character development.</li>
+    </ul>
+
+    <div class="notice">
+      Staff discretion applies at all times regarding priority management. The server chat or Discord announcements will declare when a priority cooldown is active or lifted. Claiming ignorance of cooldown status is not a valid excuse.
+    </div>
+  </div>
+
 </div>
 
 <footer>
-  <p>&copy; 2026 Nova Roleplay. All Rights Reserved.</p>
+  <p>&copy; 2026 Nova Roleplay. All Rights Reserved. Not affiliated with Rockstar Games or FiveM.</p>
 </footer>
 
-</div>
 </body>
 </html>
